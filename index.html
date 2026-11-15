@@ -179,7 +179,7 @@ const EASY=/basic english|plain|modern|twentieth|simple|easy|today|world english
 const K=['full','easy'];
 /* Edition opened the first time (after that the last one used is reopened, on the page where the reader left off) */
 const KJVS=[{id:'kjv-bible',title:'The Holy Bible, King James Version (2024 scan)',year:2024},{id:'the-holy-bible-kjv',title:'The Holy Bible, King James Version (1769 text)',year:1769}];
-const PREF={es:{full:{id:'tx-rv'},easy:{id:'tx-bes'}},en:{full:{id:'tx-bsb'},easy:{id:'tx-bbe'}}};
+const PREF={es:{full:{id:'tx-bes'},easy:{id:'tx-bes'}},en:{full:{id:'tx-bsb'},easy:{id:'tx-bbe'}}};
 /* Shared link: ?e=<edition>&p=<page>&l=<lang>&k=<kind>[&n=&t=&y= for archive.org scans] opens the exact page the sender was reading */
 const SHARE_BASE='https://easylandx.github.io/bible/';
 let DL=(()=>{try{const q=new URLSearchParams(location.search),e=q.get('e'),p=Math.floor(+q.get('p'));if(!e||!(p>0))return null;return{e,p,l:q.get('l'),k:q.get('k'),n:Math.floor(+q.get('n'))||0,t:(q.get('t')||e).slice(0,100),y:Math.floor(+q.get('y'))||0}}catch(x){return null}})();
@@ -331,7 +331,7 @@ function clean(t){
   return L.join(' ').replace(/(\w)-\s+(?=[a-zà-ÿ])/g,'$1').replace(/(^|\s)\d{1,3}(?=\s|$)/g,' ').replace(/(^|\s)\d{1,3}(?=[A-ZÁÉÍÓÚÑ“"'‘])/g,' ').replace(/[|_~*^•¶†‡§]/g,' ').replace(/\s+/g,' ').trim();
 }
 /* What is spoken has no punctuation at all; each mark becomes a pause instead */
-const sayText=(s,sc)=>(sc?s.replace(/\d+/g,' '):s).normalize('NFC').replace(/[\u00B4`\u02CA\u02CB\u00A8\u02C6\u02DC\u0300-\u036F\u2032\u2033\u00AD\u200B-\u200F]/g,'').replace(/[\u2018\u2019]/g,"'").replace(/["“”«»¿¡()\[\]{}<>*_~^|\\\/=+#@%&$§¶†‡•—–]/g,' ').replace(/(^|\s)'+|'+(?=\s|$)/g,' ').replace(/(\w)-(?=\w)/g,'$1 ').replace(/[.,;:!?…]+/g,' ').replace(/\s+/g,' ').trim();
+const sayText=(s,sc)=>(sc?s.replace(/\d+/g,' '):s).normalize('NFC').replace(/(^|[^A-Za-zÀ-ÿ])([áéóúÁÉÓÚ])(?![A-Za-zÀ-ÿ])/g,(m,p,c)=>p+c.normalize('NFD')[0]).replace(/[\u00B4`\u02CA\u02CB\u00A8\u02C6\u02DC\u0300-\u036F\u2032\u2033\u00AD\u200B-\u200F]/g,'').replace(/[\u2018\u2019]/g,"'").replace(/["“”«»¿¡()\[\]{}<>*_~^|\\\/=+#@%&$§¶†‡•—–]/g,' ').replace(/(^|\s)'+|'+(?=\s|$)/g,' ').replace(/(\w)-(?=\w)/g,'$1 ').replace(/[.,;:!?…]+/g,' ').replace(/\s+/g,' ').trim();
 const PAUSE={',':160,';':320,':':320,'.':520,'!':520,'?':520};
 function chunkify(t,sc){
   const out=[];
