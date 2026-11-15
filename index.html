@@ -428,7 +428,10 @@ const rateNow=()=>Math.min(RMAX,(+$('#rate').value||1)*FLV[fast]);
 const SPT={en:(m,n)=>n?`Reading at ${m}×. Click for ${n}×`:m>1?`Reading at ${m}×. Click to go back to normal speed`:`Normal speed. Click to read faster (${FLV[1]}×)`,es:(m,n)=>n?`Lectura a ${m}×. Clic para ${n}×`:m>1?`Lectura a ${m}×. Clic para volver a velocidad normal`:`Velocidad normal. Clic para leer más rápido (${FLV[1]}×)`};
 function spdUI(){const b=$('#spd');if(!b)return;const m=FLV[fast],n=fast>0&&fast<FLV.length-1?FLV[fast+1]:0;b.textContent=FLV[fast||1]+'×';b.setAttribute('aria-pressed',fast>0);b.title=SPT[lang](m,n);b.setAttribute('aria-label',b.title);b.hidden=!syn}
 const VL={en:['Voice','Automatic'],es:['Voz','Automática']};
-function langVoices(){return syn?syn.getVoices().filter(v=>v.lang.replace('_','-').toLowerCase().startsWith(lang)).sort((a,b)=>a.name.localeCompare(b.name)):[]}
+/* Chrome's online "Google ..." voices glitch (each sentence is a separate network request), so they are left out of the voice list and never picked automatically.
+   They only appear if a language has no other voice at all. */
+const isG=v=>/^google\b/i.test(v.name);
+function langVoices(){if(!syn)return[];const lv=syn.getVoices().filter(v=>v.lang.replace('_','-').toLowerCase().startsWith(lang)).sort((a,b)=>a.name.localeCompare(b.name)),ng=lv.filter(v=>!isG(v));return ng.length?ng:lv}
 /* Short voice names: "Microsoft Helena - Spanish (Spain)" > "Helena", "Google español de Estados Unidos" > "Español US", "Eddy" twice (es-ES, es-MX) > "Eddy ES" / "Eddy MX" */
 const VREG={'estados unidos':'US','ee. uu.':'US','ee.uu.':'US','eeuu':'US','méxico':'MX','mexico':'MX','españa':'ES','argentina':'AR','colombia':'CO','chile':'CL'};
 function vBase(v){
@@ -454,9 +457,10 @@ function fillVoices(){
 }
 function voice(){
   const sv=ls.get('bible-voice-'+lang);
-  if(sv){const f=syn.getVoices().find(v=>v.voiceURI===sv);if(f)return f}
+  if(sv){const f=langVoices().find(v=>v.voiceURI===sv);if(f)return f}
   const vs=syn.getVoices(),pref=lang==='es'?['es-ES','es']:['en-GB','en-US','en'];
-  for(const p of pref){const ok=v=>v.lang.replace('_','-').startsWith(p),v=vs.find(v=>ok(v)&&v.localService)||vs.find(ok);if(v)return v}
+  const rank=v=>(isG(v)?2:0)+(v.localService?0:1);
+  for(const p of pref){const c=vs.filter(v=>v.lang.replace('_','-').startsWith(p)).sort((a,b)=>rank(a)-rank(b));if(c.length)return c[0]}
   return null;
 }
 /* Speech safety net. Chrome can garbage-collect an utterance that is still speaking, so onend never fires and reading stalls
