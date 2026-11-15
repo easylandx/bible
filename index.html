@@ -612,6 +612,7 @@ const CATS=[
 {id:'nature',es:'Creación y naturaleza',en:'Creation and nature',k:['0:1:1','0:9:12','21:2:10','18:139:13']},
 {id:'work',es:'Trabajo y emprendimiento',en:'Work and entrepreneurship',k:['20:11:1','41:14:28','19:16:3','19:21:5','19:22:29','39:25:14']}];
 T.en.all='All';T.es.all='Todos';
+T.en.pasCut='Excerpt (verses {r}). Use “Open in the page” for the full passage.';T.es.pasCut='Extracto (versículos {r}). Usa «Abrir en la página» para ver el pasaje completo.';
 let cat=null;
 const inCat=p=>!cat||CATS.find(c=>c.id===cat).k.includes(p.b+':'+p.c+':'+p.v);
 const favHTML=full=>FAV.map((p,i)=>inCat(p)?`<button class="btn fv" data-i="${i}" title="${esc(p[lang][2])}"><b>${esc(p[lang][0])}</b><span>${esc(p[lang][1])}</span>${full?`<small>${esc(p[lang][2])}</small>`:''}</button>`:'').join('');
@@ -757,6 +758,7 @@ const TEXTEDS={
 const vlist=()=>(TEXTEDS[lang]||[]).filter(t=>t.kinds.includes(kind)).map(t=>({...t,year:0,s:0}));
 const edOpt=(d,i)=>d.v?`<option value="${i}" title="${esc(d.title)}">★ ${esc(d.title)}</option>`:`<option value="${i}" title="${esc(d.title)} (${d.year||'?'}, ${d.n} p.)">${d.year||'?'}: ${esc(d.title.slice(0,64))}, ${d.n} p.</option>`;
 let pasE=null,pasSay=false,pasTok=0;
+const PASMAX=850;
 const vrange=e=>{const m=e.en[0].match(/:(\d+)(?:-(\d+))?$/);return m?[+m[1],+(m[2]||m[1])]:[1,999]};
 function pasHide(){const el=$('#pas');if(el.hidden)return;el.hidden=true;pasTok++;pasRT++;if(pasSay){pasSay=false;if(syn)syn.cancel()}}
 function pasUI(){const t=T[lang];$('#pasR').textContent=pasSay?'❚❚ '+t.stop:'▶ '+t.read;$('#pasG').textContent=t.pasGo;$('#pasR').hidden=!syn}
@@ -770,10 +772,13 @@ async function openPas0(e){
   const[a,z]=vrange(e);
   try{
     const o=await chapterText(lang,e.b,e.c);if(my!==pasTok)return;
-    const vs=o.v.filter(x=>x.n>=a&&x.n<=z);if(!vs.length)throw 0;
+    const all=o.v.filter(x=>x.n>=a&&x.n<=z);if(!all.length)throw 0;
+    /* long passages (Matthew 25, Psalm 91...) are shown as a short excerpt; "Open in the page" has the whole thing */
+    const vs=[];let len=0;for(const x of all){if(vs.length&&len+x.t.length>PASMAX)break;vs.push(x);len+=x.t.length}
+    const cut=vs.length<all.length;
     pasE.text=vs.map(x=>x.t).join(' ');
     $('#pasB').replaceChildren(...vs.flatMap(x=>{const s=document.createElement('sup');s.textContent=x.n+' ';s.style.cssText='color:var(--mute);font:600 .6em var(--sans)';return[s,document.createTextNode(x.t+' ')]}));
-    $('#pasS').textContent=o.n||'';
+    $('#pasS').textContent=[o.n||'',cut?t.pasCut.replace('{r}',vs[0].n+(vs.length>1?'-'+vs[vs.length-1].n:'')):''].filter(Boolean).join(' · ');
   }catch(x){if(my===pasTok){$('#pasB').textContent=t.pasErr;pasE.text=''}}
 }
 let pasRT=0;
