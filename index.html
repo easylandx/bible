@@ -332,7 +332,7 @@ function clean(t){
 }
 /* What is spoken has no punctuation at all; each mark becomes a pause instead */
 const sayText=(s,sc)=>(sc?s.replace(/\d+/g,' '):s).replace(/(^|\D)(?:13|4)(?!\d)/g,'$1 ').normalize('NFC').replace(/(^|[^A-Za-zÀ-ÿ])([áéóúÁÉÓÚ])(?![A-Za-zÀ-ÿ])/g,(m,p,c)=>p+c.normalize('NFD')[0]).replace(/[\u00B4`\u02CA\u02CB\u00A8\u02C6\u02DC\u0300-\u036F\u2032\u2033\u00AD\u200B-\u200F]/g,'').replace(/[\u2018\u2019]/g,"'").replace(/["“”«»¿¡()\[\]{}<>*_~^|\\\/=+#@%&$§¶†‡•—–]/g,' ').replace(/(^|\s)'+|'+(?=\s|$)/g,' ').replace(/(\w)-(?=\w)/g,'$1 ').replace(/[.,;:!?…]+/g,' ').replace(/\s+/g,' ').trim();
-const PAUSE={',':160,';':320,':':320,'.':520,'!':520,'?':520};
+const PAUSE={',':40,';':90,':':90,'.':180,'!':180,'?':180};
 function chunkify(t,sc){
   const out=[];
   for(const m of t.replace(/\s*[—–]+\s*/g,', ').match(/[^.,;:!?]+(?:[.,;:!?]+|$)/g)||[]){
@@ -348,7 +348,7 @@ async function chunksAll(i){
   if(ed.v){
     const e1=ed,[b,c]=bcOf(i),o=await chapterText(e1.l,b,c,e1.tw),nm=BK[e1.l][b].split('|')[0],
       hd=`${nm}, ${e1.l==='es'?'capítulo':'chapter'} ${c}`;
-    return[{show:nm+' '+c,say:sayText(hd),pause:520,h:1}].concat(chunkify(o.v.map(x=>x.t).join(' ')));
+    return[{show:nm+' '+c,say:sayText(hd),pause:300,h:1}].concat(chunkify(o.v.map(x=>x.t).join(' ')));
   }
   const t=await pageText(i);return t.length<30?[]:chunkify(t,true)}
 /* Text view: the whole page must fit on one screen. Scanned pages shrink their type to fit; chapters of the text
