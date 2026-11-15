@@ -55,6 +55,7 @@ body.hide .fab{opacity:0;pointer-events:none}
 #play{width:74px;height:74px;background:var(--gilt);color:#1b1608;font-size:1.6rem}
 #auto{width:44px;height:44px;font-size:1.25rem}
 #auto[aria-pressed=true],#spd[aria-pressed=true]{background:var(--gilt);color:#1b1608}
+#vox{width:44px;height:44px;padding:0}#vox svg{width:22px;height:22px;fill:currentColor;display:block;margin:auto}
 #spd{width:44px;height:44px;font:700 .85rem var(--sans)!important;padding:0}
 #menuB{top:var(--st);right:var(--sr);width:48px;height:48px;border-radius:50%;font-size:1.4rem;cursor:pointer;padding:0}
 .chip{top:calc(var(--st) + 50px);left:var(--sl);padding:8px 14px;border-radius:24px;font:600 .9rem var(--sans)}
@@ -94,7 +95,8 @@ body.hide .fab{opacity:0;pointer-events:none}
 #favB{width:44px!important;height:44px!important;font-size:1.25rem!important}
 #wa{width:44px!important;height:44px!important;display:flex;align-items:center;justify-content:center;color:#fff!important;background:#25D366!important;border-color:#25D366!important}
 #wa svg{width:24px;height:24px;fill:currentColor;display:block}
-@media(max-width:420px){.dock{gap:6px}.dock button{width:46px;height:46px}#play{width:64px;height:64px}#auto,#favB,#wa,#spd{width:40px!important;height:40px!important}}
+@media(max-width:420px){.dock{gap:4px}.dock button{width:44px;height:44px}#play{width:62px;height:62px}#auto,#favB,#wa,#spd,#vox{width:36px!important;height:36px!important}}
+@media(max-width:360px){.dock button{width:40px;height:40px}#play{width:56px;height:56px}#auto,#favB,#wa,#spd,#vox{width:34px!important;height:34px!important}}
 #favp,#pas{position:fixed;z-index:8;left:0;right:0;bottom:0;max-height:75dvh;overflow:auto;background:var(--ink);color:var(--fg);border-top:1px solid var(--gilt);border-radius:18px 18px 0 0;box-shadow:0 -12px 40px #000a;padding-top:12px;padding-bottom:max(16px,calc(env(safe-area-inset-bottom) + 12px));padding-left:max(18px,calc(env(safe-area-inset-left) + 12px));padding-right:max(18px,calc(env(safe-area-inset-right) + 12px))}
 @media(min-width:700px){#favp,#pas{left:50%;right:auto;width:560px;transform:translateX(-50%)}}
 #favp b,#pas b{color:var(--accent)}#fvx,#pasx{min-width:44px;min-height:44px;background:none;border:0;color:var(--mute);font:600 1rem var(--sans);cursor:pointer}
@@ -129,7 +131,7 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 <div id="rib" class="fab chip" role="button" tabindex="0"><span id="ribT">1</span><input id="ribI" type="number" min="1" inputmode="numeric" hidden></div>
 <div id="lg" class="fab" role="group" aria-label="Language"><button type="button" data-fl="es" title="Español" aria-label="Español"><svg viewBox='0 0 60 40' preserveAspectRatio='none' aria-hidden='true'><rect width='60' height='40' fill='#AA151B'/><rect y='10' width='60' height='20' fill='#F1BF00'/></svg></button><button type="button" data-fl="en" title="English" aria-label="English"><svg viewBox='0 0 60 30' preserveAspectRatio='none' aria-hidden='true'><rect width='60' height='30' fill='#012169'/><path d='M0,0 60,30M60,0 0,30' stroke='#fff' stroke-width='6'/><path d='M0,0 60,30M60,0 0,30' stroke='#C8102E' stroke-width='2'/><path d='M30,0v30M0,15h60' stroke='#fff' stroke-width='10'/><path d='M30,0v30M0,15h60' stroke='#C8102E' stroke-width='6'/></svg></button></div>
 <button id="menuB" class="fab">☰</button>
-<div class="fab dock"><button id="favB" aria-label="★">★</button><button id="prev">‹</button><button id="play"></button><button id="next">›</button><button id="auto" aria-pressed="false">⟳</button><button id="spd" aria-pressed="false"></button><button id="wa" type="button" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></button></div>
+<div class="fab dock"><button id="favB" aria-label="★">★</button><button id="prev">‹</button><button id="play"></button><button id="next">›</button><button id="auto" aria-pressed="false">⟳</button><button id="spd" aria-pressed="false"></button><button id="vox" type="button" aria-label="Voice"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0 2c-3.3 0-8 1.7-8 5v1h16v-1c0-3.3-4.7-5-8-5z"/></svg></button><button id="wa" type="button" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></button></div>
 <div id="toast" hidden><span id="msg" role="status"></span><button id="retry" hidden></button></div>
 <div id="scrim" hidden></div>
 <section id="panel" hidden>
@@ -437,8 +439,34 @@ function voice(){
   const sv=ls.get('bible-voice-'+lang);
   if(sv){const f=syn.getVoices().find(v=>v.voiceURI===sv);if(f)return f}
   const vs=syn.getVoices(),pref=lang==='es'?['es-ES','es']:['en-GB','en-US','en'];
-  for(const p of pref){const v=vs.find(v=>v.lang.replace('_','-').startsWith(p));if(v)return v}
+  for(const p of pref){const ok=v=>v.lang.replace('_','-').startsWith(p),v=vs.find(v=>ok(v)&&v.localService)||vs.find(ok);if(v)return v}
   return null;
+}
+/* Speech safety net. Chrome can garbage-collect an utterance that is still speaking, so onend never fires and reading stalls
+   (mostly with its online "Google ..." voices). We keep a reference until it ends, and if an utterance never starts we say so instead of staying silent. */
+const KEEP=new Set();
+function sayU(u,fail){
+  KEEP.add(u);
+  const t0=setTimeout(()=>{if(!u._s&&KEEP.has(u)){KEEP.delete(u);try{syn.cancel()}catch(e){}fail()}},7000),oe=u.onend,or=u.onerror;
+  u.onstart=()=>{u._s=1;clearTimeout(t0)};
+  u.onend=ev=>{clearTimeout(t0);KEEP.delete(u);if(oe)oe(ev)};
+  u.onerror=ev=>{clearTimeout(t0);KEEP.delete(u);if(or)or(ev)};
+  syn.speak(u);
+}
+/* Voice button in the main controls: each tap switches to the next voice (Automatic, then every voice of the current language) and wraps around */
+let voxT=0;
+function voxName(){const v=syn?voice():null,id=ls.get('bible-voice-'+lang)||'';return id&&v?v.name:VL[lang][1]+(v?' ('+v.name+')':'')}
+function voxUI(){const b=$('#vox');if(!b)return;b.hidden=!syn;if(!syn)return;b.title=VL[lang][0]+': '+voxName();b.setAttribute('aria-label',b.title)}
+function voxCycle(){
+  if(!syn)return;
+  const vs=langVoices(),list=['',...vs.map(v=>v.voiceURI)],saved=ls.get('bible-voice-'+lang)||'';
+  const i=(list.indexOf(saved)+1)%list.length,id=list[i];
+  ls.set('bible-voice-'+lang,id);fillVoices();voxUI();
+  const pre=VL[lang][0]+': ';msg(pre+voxName()+(list.length>1?` · ${i+1}/${list.length}`:''));
+  clearTimeout(voxT);voxT=setTimeout(()=>{if($('#msg').textContent.startsWith(pre))msg('')},2500);
+  if(reading){read(Math.max(0,cur));return}
+  const v=voice();if(!v)return;
+  try{syn.cancel();const u=new SpeechSynthesisUtterance(v.name);u.voice=v;u.lang=v.lang;u.rate=rateNow();u.onerror=ev=>{if(ev.error!=='interrupted'&&ev.error!=='canceled')msg(T[lang].vfail)};setTimeout(()=>sayU(u,()=>msg(T[lang].vfail)),150)}catch(e){}
 }
 async function read(from=0){
   const my=++token;syn.cancel();await new Promise(r=>setTimeout(r,100));if(my!==token)return;
@@ -455,8 +483,9 @@ async function read(from=0){
     u.lang=lang==='es'?'es-ES':'en-GB';const v=voice();if(v){u.voice=v;u.lang=v.lang}
     u.rate=rateNow();
     u.onend=()=>{if(my!==token)return;const d=k.pause/u.rate;d?setTimeout(next,d):next()};
-    u.onerror=e=>{if(e.error!=='interrupted'&&e.error!=='canceled'&&my===token)stopRead()};
-    syn.speak(u);
+    const fail=()=>{if(my!==token)return;stopRead();msg(T[lang].vfail)};
+    u.onerror=e=>{if(e.error!=='interrupted'&&e.error!=='canceled')fail()};
+    sayU(u,fail);
   };
   next();
 }
@@ -612,6 +641,7 @@ const CATS=[
 {id:'nature',es:'Creación y naturaleza',en:'Creation and nature',k:['0:1:1','0:9:12','21:2:10','18:139:13']},
 {id:'work',es:'Trabajo y emprendimiento',en:'Work and entrepreneurship',k:['20:11:1','41:14:28','19:16:3','19:21:5','19:22:29','39:25:14']}];
 T.en.all='All';T.es.all='Todos';
+T.en.vfail='This voice did not respond. Try another one with the voice button.';T.es.vfail='Esta voz no ha respondido. Prueba otra con el botón de voz.';
 T.en.pasCut='Excerpt (verses {r}). Use “Open in the page” for the full passage.';T.es.pasCut='Extracto (versículos {r}). Usa «Abrir en la página» para ver el pasaje completo.';
 let cat=null;
 const inCat=p=>!cat||CATS.find(c=>c.id===cat).k.includes(p.b+':'+p.c+':'+p.v);
@@ -796,8 +826,9 @@ function pasRead(){
     const u=new SpeechSynthesisUtterance(k.say);
     u.lang=lang==='es'?'es-ES':'en-GB';const v=voice();if(v){u.voice=v;u.lang=v.lang}u.rate=rateNow();
     u.onend=()=>{if(my!==pasRT)return;const d=k.pause/u.rate;d?setTimeout(next,d):next()};
-    u.onerror=ev=>{if(ev.error!=='interrupted'&&ev.error!=='canceled'&&my===pasRT){pasSay=false;pasUI()}};
-    syn.speak(u);
+    const fail=()=>{if(my!==pasRT)return;pasSay=false;pasUI();msg(T[lang].vfail)};
+    u.onerror=ev=>{if(ev.error!=='interrupted'&&ev.error!=='canceled')fail()};
+    sayU(u,fail);
   };
   syn.cancel();setTimeout(next,100);
 }
@@ -815,7 +846,7 @@ function tips(){const t=T[lang].tip;
  $('#adel').querySelectorAll('option').forEach(o=>o.title=t.adel+': '+o.textContent);
  $('#bk').querySelectorAll('option').forEach(o=>o.title=o.textContent);
  $('#ch').querySelectorAll('option').forEach(o=>o.title=t.ch+' '+o.textContent)}
-function ui2(){const t=T[lang];spdUI();$('#vl').textContent=VL[lang][0];$('#voiceG').hidden=!syn;fillVoices();if(!$('#clr').dataset.busy)$('#clr').textContent=CLR[lang].b;$('#sT').textContent='🔍 '+t.srch;$('#sq').placeholder=t.sph;$('#sq').setAttribute('aria-label',t.srch);sRender();pasUI();$('#gt').textContent=t.goto;$('#go').textContent=t.go;$('#vs').placeholder=t.verse;$('#vs').setAttribute('aria-label',t.verse);$('#dl').textContent=t.delay;
+function ui2(){const t=T[lang];spdUI();$('#vl').textContent=VL[lang][0];$('#voiceG').hidden=!syn;fillVoices();voxUI();if(!$('#clr').dataset.busy)$('#clr').textContent=CLR[lang].b;$('#sT').textContent='🔍 '+t.srch;$('#sq').placeholder=t.sph;$('#sq').setAttribute('aria-label',t.srch);sRender();pasUI();$('#gt').textContent=t.goto;$('#go').textContent=t.go;$('#vs').placeholder=t.verse;$('#vs').setAttribute('aria-label',t.verse);$('#dl').textContent=t.delay;
  $('#menuB').setAttribute('aria-label',t.menu);$('#x').setAttribute('aria-label',t.close);$('#auto').setAttribute('aria-label',t.auto);$('#auto').setAttribute('aria-pressed',auto);$('#adel').value=adel;$('#alT').textContent=T[lang].align+': '+((ed&&ed.off)||0);$('#alT').parentElement.hidden=!!(ed&&ed.v);bkUI();favUI();tips()}
 function bkUI(){const b=$('#bk'),v=b.value||'0';if(b.dataset.l!==lang){b.dataset.l=lang;b.innerHTML=BK[lang].map((n,i)=>`<option value="${i}">${n.split('|')[0]}</option>`).join('')}b.value=v;chUI()}
 function chUI(){const c=$('#ch'),n=NCH[+$('#bk').value];if(+c.dataset.n!==n){c.dataset.n=n;c.innerHTML=Array.from({length:n},(_,i)=>`<option>${i+1}</option>`).join('')}}
@@ -989,8 +1020,9 @@ $('#retry').onclick=()=>ed?msg(''):loadEditions();
 $('#kind').onchange=e=>{kind=e.target.value;ls.set('bible-kind',kind);loadEditions()};
 $('#ed').onchange=e=>{if(e.target.value==='x')return custom();ls.set('bible-user-'+lang+kind,'1');open(eds[+e.target.value])};
 pg.onchange=()=>show((+pg.value||1)-1);
-$('#voiceSel').onchange=e=>{ls.set('bible-voice-'+lang,e.target.value);if(reading)read(Math.max(0,cur))};
-if(syn)syn.onvoiceschanged=fillVoices;
+$('#voiceSel').onchange=e=>{ls.set('bible-voice-'+lang,e.target.value);voxUI();if(reading)read(Math.max(0,cur))};
+if(syn)syn.onvoiceschanged=()=>{fillVoices();voxUI()};
+$('#vox').onclick=voxCycle;
 $('#spd').onclick=()=>{fast=(fast+1)%FLV.length;ls.set('bible-fast',String(fast));spdUI();if(reading)read(Math.max(0,cur))};
 $('#rate').onchange=()=>{if(reading)read(Math.max(0,cur))};
 $('#theme').onclick=()=>{theme=theme==='light'?'dark':'light';ls.set('bible-theme',theme);setTheme()};
