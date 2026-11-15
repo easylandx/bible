@@ -54,7 +54,8 @@ body.hide .fab{opacity:0;pointer-events:none}
 .dock button{width:54px;height:54px;border-radius:50%;font:500 1.9rem/1 var(--serif);cursor:pointer;padding:0}
 #play{width:74px;height:74px;background:var(--gilt);color:#1b1608;font-size:1.6rem}
 #auto{width:44px;height:44px;font-size:1.25rem}
-#auto[aria-pressed=true]{background:var(--gilt);color:#1b1608}
+#auto[aria-pressed=true],#spd[aria-pressed=true]{background:var(--gilt);color:#1b1608}
+#spd{width:44px;height:44px;font:700 .85rem var(--sans)!important;padding:0}
 #menuB{top:var(--st);right:var(--sr);width:48px;height:48px;border-radius:50%;font-size:1.4rem;cursor:pointer;padding:0}
 .chip{top:calc(var(--st) + 50px);left:var(--sl);padding:8px 14px;border-radius:24px;font:600 .9rem var(--sans)}
 #lg{top:var(--st);right:calc(var(--sr) + 56px);height:48px;display:flex;align-items:center;gap:6px;padding:0 8px;border-radius:24px;background:rgba(15,18,38,.82);border:1px solid var(--gilt);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
@@ -93,7 +94,7 @@ body.hide .fab{opacity:0;pointer-events:none}
 #favB{width:44px!important;height:44px!important;font-size:1.25rem!important}
 #wa{width:44px!important;height:44px!important;display:flex;align-items:center;justify-content:center;color:#fff!important;background:#25D366!important;border-color:#25D366!important}
 #wa svg{width:24px;height:24px;fill:currentColor;display:block}
-@media(max-width:420px){.dock{gap:6px}.dock button{width:46px;height:46px}#play{width:64px;height:64px}#auto,#favB,#wa{width:40px!important;height:40px!important}}
+@media(max-width:420px){.dock{gap:6px}.dock button{width:46px;height:46px}#play{width:64px;height:64px}#auto,#favB,#wa,#spd{width:40px!important;height:40px!important}}
 #favp,#pas{position:fixed;z-index:8;left:0;right:0;bottom:0;max-height:75dvh;overflow:auto;background:var(--ink);color:var(--fg);border-top:1px solid var(--gilt);border-radius:18px 18px 0 0;box-shadow:0 -12px 40px #000a;padding-top:12px;padding-bottom:max(16px,calc(env(safe-area-inset-bottom) + 12px));padding-left:max(18px,calc(env(safe-area-inset-left) + 12px));padding-right:max(18px,calc(env(safe-area-inset-right) + 12px))}
 @media(min-width:700px){#favp,#pas{left:50%;right:auto;width:560px;transform:translateX(-50%)}}
 #favp b,#pas b{color:var(--accent)}#fvx,#pasx{min-width:44px;min-height:44px;background:none;border:0;color:var(--mute);font:600 1rem var(--sans);cursor:pointer}
@@ -127,7 +128,7 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 <div id="rib" class="fab chip" role="button" tabindex="0"><span id="ribT">1</span><input id="ribI" type="number" min="1" inputmode="numeric" hidden></div>
 <div id="lg" class="fab" role="group" aria-label="Language"><button type="button" data-fl="es" title="Español" aria-label="Español"><svg viewBox='0 0 60 40' preserveAspectRatio='none' aria-hidden='true'><rect width='60' height='40' fill='#AA151B'/><rect y='10' width='60' height='20' fill='#F1BF00'/></svg></button><button type="button" data-fl="en" title="English" aria-label="English"><svg viewBox='0 0 60 30' preserveAspectRatio='none' aria-hidden='true'><rect width='60' height='30' fill='#012169'/><path d='M0,0 60,30M60,0 0,30' stroke='#fff' stroke-width='6'/><path d='M0,0 60,30M60,0 0,30' stroke='#C8102E' stroke-width='2'/><path d='M30,0v30M0,15h60' stroke='#fff' stroke-width='10'/><path d='M30,0v30M0,15h60' stroke='#C8102E' stroke-width='6'/></svg></button></div>
 <button id="menuB" class="fab">☰</button>
-<div class="fab dock"><button id="favB" aria-label="★">★</button><button id="prev">‹</button><button id="play"></button><button id="next">›</button><button id="auto" aria-pressed="false">⟳</button><button id="wa" type="button" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></button></div>
+<div class="fab dock"><button id="favB" aria-label="★">★</button><button id="prev">‹</button><button id="play"></button><button id="next">›</button><button id="auto" aria-pressed="false">⟳</button><button id="spd" aria-pressed="false"></button><button id="wa" type="button" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></button></div>
 <div id="toast" hidden><span id="msg" role="status"></span><button id="retry" hidden></button></div>
 <div id="scrim" hidden></div>
 <section id="panel" hidden>
@@ -135,6 +136,7 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
   <div class="grp"><label id="sT"></label><input id="sq" type="text" inputmode="search" enterkeyhint="search" autocomplete="off" style="margin-top:6px"><div id="sres"></div></div>
   <div class="grp"><label id="gt"></label><div class="g3"><select id="bk"></select><select id="ch"></select><input id="vs" type="number" min="1" inputmode="numeric"></div><button id="go" class="btn pri"></button></div>
   <div class="grp g2"><select id="kind"></select><select id="ed"></select></div>
+  <div class="grp" id="voiceG"><label><span id="vl"></span><select id="voiceSel"></select></label></div>
   <div class="grp g2"><label><span id="spl"></span><select id="rate"><option value="0.8">0.8×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select></label>
   <label><span id="pl"></span><input id="pg" type="number" min="1" inputmode="numeric"><span id="tot"></span></label></div>
   <div class="grp g2"><button id="view" class="btn"></button><label><span id="dl"></span><select id="adel"><option value="5">5 s</option><option value="8">8 s</option><option value="10">10 s</option><option value="12">12 s</option><option value="20">20 s</option><option value="30">30 s</option></select></label></div>
@@ -414,7 +416,23 @@ function setView(){
 }
 
 /* Read aloud */
+/* Fast-reading button: 2x on desktop, 1.5x on phones (phone voices are already quick and get hard to follow beyond that) */
+const isPhone0=()=>/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+const FASTM=isPhone0()?1.5:2;let fast=ls.get('bible-fast')==='1';
+const rateNow=()=>Math.min(isPhone0()?2:3,(+$('#rate').value||1)*(fast?FASTM:1));
+const SPT={en:['Faster reading ({m}×). Click to go back to normal speed','Normal speed. Click to read faster ({m}×)'],es:['Lectura rápida ({m}×). Clic para volver a velocidad normal','Velocidad normal. Clic para leer más rápido ({m}×)']};
+function spdUI(){const b=$('#spd');if(!b)return;b.textContent=FASTM+'×';b.setAttribute('aria-pressed',fast);b.title=SPT[lang][fast?0:1].replace('{m}',FASTM);b.setAttribute('aria-label',b.title);b.hidden=!syn}
+const VL={en:['Voice','Automatic'],es:['Voz','Automática']};
+function langVoices(){return syn?syn.getVoices().filter(v=>v.lang.replace('_','-').toLowerCase().startsWith(lang)).sort((a,b)=>a.name.localeCompare(b.name)):[]}
+function fillVoices(){
+  const sel=$('#voiceSel');if(!sel||!syn)return;
+  const saved=ls.get('bible-voice-'+lang)||'',vs=langVoices();
+  sel.innerHTML=`<option value="">${VL[lang][1]}</option>`+vs.map(v=>`<option value="${esc(v.voiceURI)}">${esc(v.name)} (${esc(v.lang)})</option>`).join('');
+  sel.value=vs.some(v=>v.voiceURI===saved)?saved:'';
+}
 function voice(){
+  const sv=ls.get('bible-voice-'+lang);
+  if(sv){const f=syn.getVoices().find(v=>v.voiceURI===sv);if(f)return f}
   const vs=syn.getVoices(),pref=lang==='es'?['es-ES','es']:['en-GB','en-US','en'];
   for(const p of pref){const v=vs.find(v=>v.lang.replace('_','-').startsWith(p));if(v)return v}
   return null;
@@ -431,8 +449,8 @@ async function read(from=0){
     const k=c[i++];cur=i-1;hl(cur);
     if(!k.say){next();return}
     const u=new SpeechSynthesisUtterance(k.say);
-    u.lang=lang==='es'?'es-ES':'en-GB';const v=voice();if(v)u.voice=v;
-    u.rate=+$('#rate').value;
+    u.lang=lang==='es'?'es-ES':'en-GB';const v=voice();if(v){u.voice=v;u.lang=v.lang}
+    u.rate=rateNow();
     u.onend=()=>{if(my!==token)return;const d=k.pause/u.rate;d?setTimeout(next,d):next()};
     u.onerror=e=>{if(e.error!=='interrupted'&&e.error!=='canceled'&&my===token)stopRead()};
     syn.speak(u);
@@ -462,7 +480,7 @@ const rom=n=>{let r='';for(const[v,t]of[[100,'C'],[90,'XC'],[50,'L'],[40,'XL'],[
 const mi=(a,i)=>{const k=Math.abs(a.length-ed.n)>Math.max(3,ed.n*.03)?Math.round(i*(a.length-1)/Math.max(1,ed.n-1)):i;return Math.max(0,Math.min(a.length-1,k+(ed.off||0)))};
 let auto=ls.get('bible-auto')==='1',adel=+ls.get('bible-adel')||10,autoT=null,busy=false,fs=1;
 const panel=$('#panel'),menuOpen=()=>!panel.hidden||!$('#favp').hidden;
-function openMenu(o){if(o)pasHide();panel.hidden=!o;$('#scrim').hidden=!o;if(o)$('#favp').hidden=true;if(!o)armAuto();else if(ed)buildIdx().catch(()=>{})}
+function openMenu(o){if(o){pasHide();fillVoices()}panel.hidden=!o;$('#scrim').hidden=!o;if(o)$('#favp').hidden=true;if(!o)armAuto();else if(ed)buildIdx().catch(()=>{})}
 const FAV=[
 {b:20,c:3,v:1,en:['Ecclesiastes 3:1-8','A time for everything','A poem that accepts every season of life: weeping and laughing each have their place.'],es:['Eclesiastés 3:1-8','Todo tiene su tiempo','Un poema filosófico que acepta todas las etapas de la vida: tanto el llorar como el reír tienen su lugar.']},
 {b:18,c:23,v:1,en:['Psalm 23','The Lord is my shepherd','A classic song of trust, comfort and refuge, even in the darkest valley.'],es:['Salmo 23','El Señor es mi pastor','Un canto clásico de confianza, consuelo y refugio, incluso en el valle de sombra de muerte.']},
@@ -673,7 +691,7 @@ function pasRead(){
     if(i>=c.length){pasSay=false;pasUI();return}
     const k=c[i++];if(!k.say){next();return}
     const u=new SpeechSynthesisUtterance(k.say);
-    u.lang=lang==='es'?'es-ES':'en-GB';const v=voice();if(v)u.voice=v;u.rate=+$('#rate').value;
+    u.lang=lang==='es'?'es-ES':'en-GB';const v=voice();if(v){u.voice=v;u.lang=v.lang}u.rate=rateNow();
     u.onend=()=>{if(my!==pasRT)return;const d=k.pause/u.rate;d?setTimeout(next,d):next()};
     u.onerror=ev=>{if(ev.error!=='interrupted'&&ev.error!=='canceled'&&my===pasRT){pasSay=false;pasUI()}};
     syn.speak(u);
@@ -694,7 +712,7 @@ function tips(){const t=T[lang].tip;
  $('#adel').querySelectorAll('option').forEach(o=>o.title=t.adel+': '+o.textContent);
  $('#bk').querySelectorAll('option').forEach(o=>o.title=o.textContent);
  $('#ch').querySelectorAll('option').forEach(o=>o.title=t.ch+' '+o.textContent)}
-function ui2(){const t=T[lang];if(!$('#clr').dataset.busy)$('#clr').textContent=CLR[lang].b;$('#sT').textContent='🔍 '+t.srch;$('#sq').placeholder=t.sph;$('#sq').setAttribute('aria-label',t.srch);sRender();pasUI();$('#gt').textContent=t.goto;$('#go').textContent=t.go;$('#vs').placeholder=t.verse;$('#vs').setAttribute('aria-label',t.verse);$('#dl').textContent=t.delay;
+function ui2(){const t=T[lang];spdUI();$('#vl').textContent=VL[lang][0];$('#voiceG').hidden=!syn;fillVoices();if(!$('#clr').dataset.busy)$('#clr').textContent=CLR[lang].b;$('#sT').textContent='🔍 '+t.srch;$('#sq').placeholder=t.sph;$('#sq').setAttribute('aria-label',t.srch);sRender();pasUI();$('#gt').textContent=t.goto;$('#go').textContent=t.go;$('#vs').placeholder=t.verse;$('#vs').setAttribute('aria-label',t.verse);$('#dl').textContent=t.delay;
  $('#menuB').setAttribute('aria-label',t.menu);$('#x').setAttribute('aria-label',t.close);$('#auto').setAttribute('aria-label',t.auto);$('#auto').setAttribute('aria-pressed',auto);$('#adel').value=adel;$('#alT').textContent=T[lang].align+': '+((ed&&ed.off)||0);$('#alT').parentElement.hidden=!!(ed&&ed.v);bkUI();favUI();tips()}
 function bkUI(){const b=$('#bk'),v=b.value||'0';if(b.dataset.l!==lang){b.dataset.l=lang;b.innerHTML=BK[lang].map((n,i)=>`<option value="${i}">${n.split('|')[0]}</option>`).join('')}b.value=v;chUI()}
 function chUI(){const c=$('#ch'),n=NCH[+$('#bk').value];if(+c.dataset.n!==n){c.dataset.n=n;c.innerHTML=Array.from({length:n},(_,i)=>`<option>${i+1}</option>`).join('')}}
@@ -868,6 +886,9 @@ $('#retry').onclick=()=>ed?msg(''):loadEditions();
 $('#kind').onchange=e=>{kind=e.target.value;ls.set('bible-kind',kind);loadEditions()};
 $('#ed').onchange=e=>{if(e.target.value==='x')return custom();ls.set('bible-user-'+lang+kind,'1');open(eds[+e.target.value])};
 pg.onchange=()=>show((+pg.value||1)-1);
+$('#voiceSel').onchange=e=>{ls.set('bible-voice-'+lang,e.target.value);if(reading)read(Math.max(0,cur))};
+if(syn)syn.onvoiceschanged=fillVoices;
+$('#spd').onclick=()=>{fast=!fast;ls.set('bible-fast',fast?'1':'0');spdUI();if(reading)read(Math.max(0,cur))};
 $('#rate').onchange=()=>{if(reading)read(Math.max(0,cur))};
 $('#theme').onclick=()=>{theme=theme==='light'?'dark':'light';ls.set('bible-theme',theme);setTheme()};
 document.querySelectorAll('.lang button[data-l]').forEach(b=>b.onclick=()=>{if(b.dataset.l===lang)return;lang=b.dataset.l;ls.set('bible-lang',lang);ui();loadEditions()});
