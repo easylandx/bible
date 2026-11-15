@@ -429,10 +429,27 @@ const SPT={en:(m,n)=>n?`Reading at ${m}×. Click for ${n}×`:m>1?`Reading at ${m
 function spdUI(){const b=$('#spd');if(!b)return;const m=FLV[fast],n=fast>0&&fast<FLV.length-1?FLV[fast+1]:0;b.textContent=FLV[fast||1]+'×';b.setAttribute('aria-pressed',fast>0);b.title=SPT[lang](m,n);b.setAttribute('aria-label',b.title);b.hidden=!syn}
 const VL={en:['Voice','Automatic'],es:['Voz','Automática']};
 function langVoices(){return syn?syn.getVoices().filter(v=>v.lang.replace('_','-').toLowerCase().startsWith(lang)).sort((a,b)=>a.name.localeCompare(b.name)):[]}
+/* Short voice names: "Microsoft Helena - Spanish (Spain)" > "Helena", "Google español de Estados Unidos" > "Español US", "Eddy" twice (es-ES, es-MX) > "Eddy ES" / "Eddy MX" */
+const VREG={'estados unidos':'US','ee. uu.':'US','ee.uu.':'US','eeuu':'US','méxico':'MX','mexico':'MX','españa':'ES','argentina':'AR','colombia':'CO','chile':'CL'};
+function vBase(v){
+  let n=String(v.name||'').replace(/^(Microsoft|Google)\s+/i,'').replace(/\s+-\s+.*$/,'')
+    .replace(/\s*\((?:spanish|english|español|inglés|espanol|ingles)\b[^()]*(?:\([^()]*\))?[^()]*\)\s*$/i,'')
+    .replace(/\s*\([a-z]{2,3}[-_][A-Za-z]{2,4}\)\s*$/i,'')
+    .replace(/\s*Online\s*(\(Natural\))/i,' $1')
+    .replace(/^(US|UK|Australian|Indian) English\b/i,(m,r)=>'English '+r.toUpperCase())
+    .replace(/^(español|spanish)\s+de\s+(.+)$/i,(m,l,r)=>'Español '+(VREG[r.trim().toLowerCase()]||r)).trim();
+  return n.charAt(0).toUpperCase()+n.slice(1)||String(v.name||'');
+}
+function vLabels(vs){
+  const cnt={},m=new Map();vs.forEach(v=>{const b=vBase(v);cnt[b]=(cnt[b]||0)+1});
+  vs.forEach(v=>{const b=vBase(v),r=(v.lang.replace('_','-').split('-')[1]||'').toUpperCase();m.set(v.voiceURI,cnt[b]>1&&r?b+' '+r:b)});
+  return m;
+}
+const vName=v=>v?(vLabels(langVoices()).get(v.voiceURI)||vBase(v)):'';
 function fillVoices(){
   const sel=$('#voiceSel');if(!sel||!syn)return;
   const saved=ls.get('bible-voice-'+lang)||'',vs=langVoices();
-  sel.innerHTML=`<option value="">${VL[lang][1]}</option>`+vs.map(v=>`<option value="${esc(v.voiceURI)}">${esc(v.name)} (${esc(v.lang)})</option>`).join('');
+  const lb=vLabels(vs);sel.innerHTML=`<option value="">${VL[lang][1]}</option>`+vs.map(v=>`<option value="${esc(v.voiceURI)}">${esc(lb.get(v.voiceURI))}</option>`).join('');
   sel.value=vs.some(v=>v.voiceURI===saved)?saved:'';
 }
 function voice(){
@@ -455,7 +472,7 @@ function sayU(u,fail){
 }
 /* Voice button in the main controls: each tap switches to the next voice (Automatic, then every voice of the current language) and wraps around */
 let voxT=0;
-function voxName(){const v=syn?voice():null,id=ls.get('bible-voice-'+lang)||'';return id&&v?v.name:VL[lang][1]+(v?' ('+v.name+')':'')}
+function voxName(){const v=syn?voice():null,id=ls.get('bible-voice-'+lang)||'';return id&&v?vName(v):VL[lang][1]+(v?' ('+vName(v)+')':'')}
 function voxUI(){const b=$('#vox');if(!b)return;b.hidden=!syn;if(!syn)return;b.title=VL[lang][0]+': '+voxName();b.setAttribute('aria-label',b.title)}
 function voxCycle(){
   if(!syn)return;
@@ -466,7 +483,7 @@ function voxCycle(){
   clearTimeout(voxT);voxT=setTimeout(()=>{if($('#msg').textContent.startsWith(pre))msg('')},2500);
   if(reading){read(Math.max(0,cur));return}
   const v=voice();if(!v)return;
-  try{syn.cancel();const u=new SpeechSynthesisUtterance(v.name);u.voice=v;u.lang=v.lang;u.rate=rateNow();u.onerror=ev=>{if(ev.error!=='interrupted'&&ev.error!=='canceled')msg(T[lang].vfail)};setTimeout(()=>sayU(u,()=>msg(T[lang].vfail)),150)}catch(e){}
+  try{syn.cancel();const u=new SpeechSynthesisUtterance(vBase(v).replace(/\s*\(.*\)/,''));u.voice=v;u.lang=v.lang;u.rate=rateNow();u.onerror=ev=>{if(ev.error!=='interrupted'&&ev.error!=='canceled')msg(T[lang].vfail)};setTimeout(()=>sayU(u,()=>msg(T[lang].vfail)),150)}catch(e){}
 }
 async function read(from=0){
   const my=++token;syn.cancel();await new Promise(r=>setTimeout(r,100));if(my!==token)return;
