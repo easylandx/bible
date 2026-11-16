@@ -822,7 +822,12 @@ async function openPas0(e){
   $('#pasT').textContent=e[lang][0]+' · '+e[lang][1];$('#pasB').textContent='…';$('#pasS').textContent='';pasUI();
   const[a,z]=vrange(e);
   try{
-    const o=await chapterText(lang,e.b,e.c);if(my!==pasTok)return;
+    /* Spanish passage cards use Biblia en Español Sencillo; Reina-Valera is only a fallback if it cannot be loaded */
+    const bes=TEXTEDS.es.find(t=>t.id==='tx-bes').tw;
+    let o;
+    if(lang==='es'){try{o=await chapterText('es',e.b,e.c,bes)}catch(x){o=await chapterText(lang,e.b,e.c)}}
+    else o=await chapterText(lang,e.b,e.c);
+    if(my!==pasTok)return;
     const all=o.v.filter(x=>x.n>=a&&x.n<=z);if(!all.length)throw 0;
     /* long passages (Matthew 25, Psalm 91...) are shown as a short excerpt; "Open in the page" has the whole thing */
     const vs=[];let len=0;for(const x of all){if(vs.length&&len+x.t.length>PASMAX)break;vs.push(x);len+=x.t.length}
